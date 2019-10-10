@@ -1,58 +1,278 @@
-import static com.google.common.base.Strings.*;
+import sun.plugin2.message.Message;
 
-
-public class HelloOtus {
-    private String s;
-
-    public HelloOtus(String sinput) {
-
-        GuavaExample(sinput);
-
-    }
-
-    private void GuavaExample(String s1) {
-       /*if(str == null) {
-        str = "";
-        }
-
-        if("".equals(str)) {
-        str = null;
-        }
-
-        if(str == null || str.length() == 0) {
-        // null или пустая строка
-        }*/
-
-        s1 = nullToEmpty(s1);
-        s1 = emptyToNull(s1);
-        if (isNullOrEmpty(s1)) {
-            System.out.println("Empty ");
-        }
-        s=s1;
-    }
-
-    public String GetResult() {
-        return s;
-    }
-
-}
-
-
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
-
-        Scanner in = new Scanner(System.in);
-        System.out.print("Input a String: ");
-        String str = in.nextLine();
-        HelloOtus ho = new HelloOtus(str);
-        System.out.println(ho.GetResult());
+        DIArrayList<String> myarrlst = new DIArrayList();
+        List<String> defarrlst = new ArrayList<>();
 
 
+        for (int i = 1; i <= 20; i++) {
+            defarrlst.add("DefaultArrayList - " + i);
+        }
 
+        for (int i1 = 1; i1 <= 30; i1++) {
+            myarrlst.add("MyArrayList - " + i1);
+        }
+
+
+        try {
+            Collections.copy(myarrlst, defarrlst);
+        } catch (Exception e) {
+            System.out.println("Ошибка копирования Collections.copy - " + e);
+        }
+
+        try {
+            Collections.addAll(myarrlst, "first add", "second add", "third add", "forth add");
+        } catch (Exception e) {
+            System.out.println("Ошибка добавления элементов Collections.addAll - " + e);
+        }
+
+        try {
+            Collections.sort(myarrlst, null);
+        } catch (Exception e) {
+            System.out.println("Ошибка сортировки  - Collections.sort" + e);
+        }
+
+
+        for (int jj = 0; jj <= myarrlst.size() - 1; jj++) {
+            System.out.println(myarrlst.get(jj));
+        }
+
+    }
+}
+
+
+import java.util.*;
+
+
+public class DIArrayList<T> implements List<T> {
+
+    private T[] myarray;
+    private int index;
+    private int size;
+
+
+    public DIArrayList() {
+        myarray = (T[]) new Object[30];
+    }
+
+
+    @Override
+    public int size() {
+        return size;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return size() == 0;
+    }
+
+    @Override
+    public boolean contains(Object o) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Object[] toArray() {
+        return Arrays.copyOf(myarray, myarray.length);
+
+    }
+
+    @Override
+    public <T1> T1[] toArray(T1[] t1s) {
+        /*if (t1s.length < this.size) {
+            return (T1[]) Arrays.copyOf(myarray, this.size, t1s.getClass());
+        } else {
+            System.arraycopy(this.myarray, 0, t1s, 0, this.size);
+            if (t1s.length > this.size) {
+                t1s[this.size] = null;
+            }
+
+            return t1s;
+        }*/throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean add(T var1) {
+        if (index == myarray.length) {grow();}
+        myarray[index] = var1;
+        index++;
+        size++;
+        return true;
+    }
+
+
+    private void grow() {
+     myarray = Arrays.copyOf(myarray, myarray.length+1);
+    }
+
+
+    @Override
+    public boolean remove(Object o) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean containsAll(Collection<?> collection) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean addAll(Collection<? extends T> collection) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean addAll(int i, Collection<? extends T> collection) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean removeAll(Collection<?> collection) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean retainAll(Collection<?> collection) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void clear() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public T get(int i) {
+        //System.out.println("Длинна массива" + elements.length);
+        if (i >= myarray.length || i < 0) {
+            throw new IndexOutOfBoundsException("Неверный индекс: " + i);
+        }
+        return myarray[i];
+    }
+
+    /*public T set(int i, T t) {
+        return null;
+    }*/
+    @Override
+    public T set(int i, T t) {
+
+        if (i >= myarray.length || i < 0) {
+            throw new IndexOutOfBoundsException("Неверный индекс: " + i);
+        }
+        if (i < myarray.length) {
+            myarray[i] = t;
+        }
+        return myarray[i];
+    }
+
+
+    @Override
+    public void add(int i, T t) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public T remove(int i) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public int indexOf(Object o) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public int lastIndexOf(Object o) {
+        throw new UnsupportedOperationException();
+    }
+
+
+    @Override
+    public ListIterator<T> listIterator(int i) {
+        throw new UnsupportedOperationException();
+    }
+
+        /*public ListIterator<T> listIterator() {
+          return  null;
+    }*/
+
+    @Override
+    public ListIterator<T> listIterator() {
+        return new ListIterator<T>() {
+            int cursor=0;
+
+            @Override
+            public boolean hasNext() {
+                if (size >= myarray.length) {
+                    return false;
+                }
+                return true;
+            }
+
+            @Override
+            public T next() {
+                int i = cursor;
+                if (i >= size) {
+                    throw new NoSuchElementException();
+                }
+                T[] myarray2 = myarray;
+                if (i > myarray2.length) {
+                    throw new ConcurrentModificationException();
+                }
+                cursor = i + 1;
+                return (T) myarray2[i];
+            }
+
+            @Override
+            public boolean hasPrevious() {
+                return false;
+            }
+
+            @Override
+            public T previous() {
+                return null;
+            }
+
+            @Override
+            public int nextIndex() {
+                return 0;
+            }
+
+            @Override
+            public int previousIndex() {
+                return 0;
+            }
+
+            @Override
+            public void remove() {
+
+            }
+
+            @Override
+            public void set(T t) {
+                myarray[cursor-1] = t;
+               // next();
+            }
+
+            @Override
+            public void add(T t) {
+
+            }
+        };
+    }
+
+    @Override
+    public List<T> subList(int i, int i1) {
+        throw new UnsupportedOperationException();
     }
 }
