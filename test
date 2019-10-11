@@ -7,14 +7,14 @@ public class Main {
 
     public static void main(String[] args) {
         DIArrayList<String> myarrlst = new DIArrayList();
-        List<String> defarrlst = new ArrayList<>();
+        ArrayList<String> defarrlst = new ArrayList<>();
 
 
-        for (int i = 1; i <= 20; i++) {
+        for (int i = 1; i <= 30; i++) {
             defarrlst.add("DefaultArrayList - " + i);
         }
 
-        for (int i1 = 1; i1 <= 30; i1++) {
+        for (int i1 = 1; i1 <= 40; i1++) {
             myarrlst.add("MyArrayList - " + i1);
         }
 
@@ -27,6 +27,7 @@ public class Main {
 
         try {
             Collections.addAll(myarrlst, "first add", "second add", "third add", "forth add");
+            myarrlst.addAll(defarrlst);
         } catch (Exception e) {
             System.out.println("Ошибка добавления элементов Collections.addAll - " + e);
         }
@@ -44,6 +45,7 @@ public class Main {
 
     }
 }
+
 
 
 import java.util.*;
@@ -103,7 +105,7 @@ public class DIArrayList<T> implements List<T> {
 
     @Override
     public boolean add(T var1) {
-        if (index == myarray.length) {grow();}
+        if (index == myarray.length) {grow(1);}
         myarray[index] = var1;
         index++;
         size++;
@@ -111,8 +113,9 @@ public class DIArrayList<T> implements List<T> {
     }
 
 
-    private void grow() {
-     myarray = Arrays.copyOf(myarray, myarray.length+1);
+    private void grow(int count) {
+
+     myarray = Arrays.copyOf(myarray, myarray.length+count);
     }
 
 
@@ -126,10 +129,21 @@ public class DIArrayList<T> implements List<T> {
         throw new UnsupportedOperationException();
     }
 
+        /*public boolean addAll(Collection<? extends T> collection) {
+        throw new UnsupportedOperationException();
+    }*/
+
     @Override
     public boolean addAll(Collection<? extends T> collection) {
-        throw new UnsupportedOperationException();
+        Object[] var2 = collection.toArray();
+        int var3 = var2.length;
+        grow(var3);
+        System.arraycopy(var2, 0, myarray, myarray.length-var3, var3);
+        this.size += var3;
+        return var3 != 0;
     }
+
+
 
     @Override
     public boolean addAll(int i, Collection<? extends T> collection) {
