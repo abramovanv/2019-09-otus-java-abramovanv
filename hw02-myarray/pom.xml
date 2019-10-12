@@ -27,7 +27,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>Main</mainClass>
+                            <mainClass>hw2.otus.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
