@@ -1,13 +1,14 @@
 package hw2.otus;
 
-import java.util.Collections;
-import java.util.ArrayList;
+import java.util.*;
 
 public class Main {
+
 
     public static void main(String[] args) {
         DIArrayList<String> myarrlst = new DIArrayList();
         ArrayList<String> defarrlst = new ArrayList<>();
+
 
         for (int i = 1; i <= 30; i++) {
             defarrlst.add("DefaultArrayList - " + i);
@@ -16,6 +17,7 @@ public class Main {
         for (int i1 = 1; i1 <= 40; i1++) {
             myarrlst.add("MyArrayList - " + i1);
         }
+
 
         try {
             Collections.copy(myarrlst, defarrlst);
@@ -31,8 +33,7 @@ public class Main {
         }
 
         try {
-            //Collections.sort(myarrlst, null);
-            myarrlst.sort(null);
+            Collections.sort(myarrlst, null);
         } catch (Exception e) {
             System.out.println("Ошибка сортировки  - Collections.sort" + e);
         }
@@ -41,5 +42,6 @@ public class Main {
         for (int jj = 0; jj <= myarrlst.size() - 1; jj++) {
             System.out.println(myarrlst.get(jj));
         }
+
     }
 }
