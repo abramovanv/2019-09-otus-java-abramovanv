@@ -13,6 +13,8 @@
     <modules>
         <module>hw01-maven</module>
         <module>hw02-myarray</module>
+        <module>hw04-logging</module>
+        <module>hw03-gc</module>
     </modules>
 
     <properties>
@@ -20,6 +22,8 @@
         <maven.compiler.source>12</maven.compiler.source>
         <maven.compiler.target>12</maven.compiler.target>
         <com.google.guava.version>28.1-jre</com.google.guava.version>
+        <asm.version>7.2</asm.version>
+        <maven-shade-plugin.version>3.2.1</maven-shade-plugin.version>
         <my.variable>42</my.variable>
     </properties>
 
